@@ -1,5 +1,9 @@
 import core.Line;
 import core.Station;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -12,6 +16,12 @@ import java.util.Scanner;
 
 public class Main
 {
+
+    private static final Logger LOGGER = LogManager.getLogger(Main.class);
+    private static final Marker ALL_SEARCH_MARKER = MarkerManager.getMarker("ALL_SEARCH");
+    private static final Marker INPUT_ERROR_MARKER = MarkerManager.getMarker("INPUT_ERROR");
+    private static final Marker EXCEPTION_MARKER = MarkerManager.getMarker("EXCEPTION");
+
     private static String dataFile = "src/main/resources/map.json";
     private static Scanner scanner;
 
@@ -19,6 +29,7 @@ public class Main
 
     public static void main(String[] args)
     {
+
         RouteCalculator calculator = getRouteCalculator();
 
         System.out.println("Программа расчёта маршрутов метрополитена Санкт-Петербурга\n");
@@ -71,8 +82,10 @@ public class Main
             String line = scanner.nextLine().trim();
             Station station = stationIndex.getStation(line);
             if(station != null) {
+                LOGGER.info(ALL_SEARCH_MARKER, "Введена станция: " + station);
                 return station;
             }
+            LOGGER.info(INPUT_ERROR_MARKER, "Ошибочно введенная станция: " + line);
             System.out.println("Станция не найдена :(");
         }
     }
@@ -95,6 +108,7 @@ public class Main
             parseConnections(connectionsArray);
         }
         catch(Exception ex) {
+            LOGGER.info(EXCEPTION_MARKER, "Произошла ошибка: " + ex);
             ex.printStackTrace();
         }
     }
@@ -159,6 +173,7 @@ public class Main
             lines.forEach(line -> builder.append(line));
         }
         catch (Exception ex) {
+            LOGGER.info(EXCEPTION_MARKER, "Произошла ошибка: " + ex);
             ex.printStackTrace();
         }
         return builder.toString();

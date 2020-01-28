@@ -27,9 +27,8 @@
 
     <loggers>
         <root level="debug">
-            <appender-ref ref="SearchStation" level="info"/>
-            <appender-ref ref="InputError" level="info"/>
-            <appender-ref ref="Exception" level="info"/>
+            <appender-ref ref="SearchStation" />
+            <appender-ref ref="InputError" />
         </root>
     </loggers>
 </configuration>

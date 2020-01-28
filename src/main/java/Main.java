@@ -18,9 +18,8 @@ public class Main
 {
 
     private static final Logger LOGGER = LogManager.getLogger(Main.class);
-    private static final Marker ALL_SEARCH_MARKER = MarkerManager.getMarker("ALL_SEARCH");
+    private static final Marker SEARCH_MARKER = MarkerManager.getMarker("SEARCH");
     private static final Marker INPUT_ERROR_MARKER = MarkerManager.getMarker("INPUT_ERROR");
-    private static final Marker EXCEPTION_MARKER = MarkerManager.getMarker("EXCEPTION");
 
     private static String dataFile = "src/main/resources/map.json";
     private static Scanner scanner;
@@ -82,10 +81,10 @@ public class Main
             String line = scanner.nextLine().trim();
             Station station = stationIndex.getStation(line);
             if(station != null) {
-                LOGGER.info(ALL_SEARCH_MARKER, "Введена станция: " + station);
+                LOGGER.info(SEARCH_MARKER, "Пользователь ввел станцию: {}", station);
                 return station;
             }
-            LOGGER.info(INPUT_ERROR_MARKER, "Ошибочно введенная станция: " + line);
+            LOGGER.info(INPUT_ERROR_MARKER, "Ошибочно введенная станция: {}", line);
             System.out.println("Станция не найдена :(");
         }
     }
@@ -108,7 +107,7 @@ public class Main
             parseConnections(connectionsArray);
         }
         catch(Exception ex) {
-            LOGGER.info(EXCEPTION_MARKER, "Произошла ошибка: " + ex);
+            LOGGER.error(ex);
             ex.printStackTrace();
         }
     }
@@ -173,7 +172,7 @@ public class Main
             lines.forEach(line -> builder.append(line));
         }
         catch (Exception ex) {
-            LOGGER.info(EXCEPTION_MARKER, "Произошла ошибка: " + ex);
+            LOGGER.error(ex);
             ex.printStackTrace();
         }
         return builder.toString();

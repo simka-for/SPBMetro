@@ -5,19 +5,19 @@
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
 
-        <File name="SearchStation" fileName="logs/AllInputStation.log">
+        <File name="SearchStation" fileName="logs/inputStation.log">
             <PatternLayout pattern="%d{yyyy-mm-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
             <Filters>
-                <MarkerFilter marker="ALL_SEARCH" />
+                <MarkerFilter marker="SEARCH" />
             </Filters>
         </File>
-        <File name="InputError" fileName="logs/InputError.log">
+        <File name="InputError" fileName="logs/inputError.log">
             <PatternLayout pattern="%d{yyyy-mm-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
             <Filters>
                 <MarkerFilter marker="INPUT_ERROR" />
             </Filters>
         </File>
-        <File name="Exception" fileName="logs/ExError.log">
+        <File name="Exception" fileName="logs/exError.log">
             <PatternLayout pattern="%d{yyyy-mm-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
             <Filters>
                 <MarkerFilter marker="EXCEPTION" />
